@@ -1,0 +1,328 @@
+/* CONTACT 페이지 전용 스타일 */
+
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 100px 0 60px;
+    text-align: center;
+}
+
+.page-title {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.page-subtitle {
+    font-family: 'Noto Sans KR', 'Ethnocentric', 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.contact-content-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* 좌측 맵 + 우측 연락처 레이아웃 */
+.contact-map-info-layout {
+    grid-template-columns: 1.2fr 1fr;
+}
+
+.contact-map-wrapper {
+    min-height: 0;
+}
+
+.contact-map-wrapper .map-container {
+    margin-bottom: 1rem;
+}
+
+.contact-map-wrapper .section-heading {
+    margin-bottom: 1rem;
+}
+
+.section-heading {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+}
+
+/* 연락처 정보 영역 */
+.contact-info {
+    background-color: var(--card-bg, white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 100px;
+}
+
+.contact-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.info-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.info-icon {
+    font-size: 1.8rem;
+    min-width: 40px;
+    text-align: center;
+}
+
+.info-text h3 {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    letter-spacing: 0.01em;
+}
+
+.info-text p {
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.social-media {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-heading {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.social-link {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.social-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.social-link-youtube {
+    background-color: #FF0000;
+    color: white;
+    border-color: #FF0000;
+}
+
+.social-link-youtube:hover {
+    background-color: #CC0000;
+    border-color: #CC0000;
+    color: white;
+}
+
+/* 문의 폼 영역 */
+.contact-form-wrapper {
+    background-color: var(--card-bg, white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.contact-form-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form-page .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', 'Ethnocentric', 'Orbitron', sans-serif;
+    letter-spacing: 0.01em;
+}
+
+.contact-form-page .form-group input,
+.contact-form-page .form-group textarea,
+.contact-form-page .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Noto Sans KR', 'Ethnocentric', 'Orbitron', sans-serif;
+    transition: var(--transition);
+    background-color: var(--bg-color);
+}
+
+.contact-form-page .form-group input:focus,
+.contact-form-page .form-group textarea:focus,
+.contact-form-page .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.contact-form-page .form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form-page .form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 400 !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+/* 문의하기 하단 섹션 */
+.contact-form-section {
+    padding: 80px 0;
+    background-color: var(--bg-color);
+}
+
+.contact-form-section .contact-form-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.map-link {
+    display: inline-block;
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.map-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.map-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 968px) {
+    .contact-layout,
+    .contact-map-info-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-map-wrapper .map-container iframe {
+        height: 320px;
+    }
+
+    .contact-info {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-heading {
+        font-size: 1.5rem;
+    }
+
+    .contact-info,
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+
+    .social-links {
+        flex-direction: column;
+    }
+
+    .social-link {
+        width: 100%;
+        text-align: center;
+    }
+}

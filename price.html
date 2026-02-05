@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        (function(){var t=localStorage.getItem('specia-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SPECIA 요금 안내">
+    <title>PRICE - SPECIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">SP<span class="logo-e">三</span>CIA</a>
+                </div>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">ABOUT</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="values-vision.html">Vision</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link active">SERVICE</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="price.html">Price</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                        <li><a href="login.html" class="nav-link nav-login">LOGIN</a></li>
+                    </ul>
+                    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="테마 전환"></button>
+                    <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">PRICE</h1>
+                <p class="page-subtitle">고품질의 서비스와 합리적인 가격으로 고객의 성공을 지원합니다.</p>
+            </div>
+        </section>
+
+        <section class="about-intro-section">
+            <div class="container">
+                <div class="about-intro-layout">
+                    <div class="about-intro-text">
+                        <p>SPECIA의 서비스 요금은 '일반요금제'와 '구독요금제'로 나뉩니다.</p>
+                        <p><strong>일반요금제</strong> – 4가지 티어별로 금액이 나뉘며, 추가옵션을 통해 필요하신만큼만 합리적인 가격에 서비스를 제공합니다.</p>
+                        <p><strong>구독요금제</strong> – '고정가격 구독제'와 '협의가격 구독제' 두가지 형태로 나뉩니다. 많은 프로젝트 진행시 경제적인 가격에 고품질 서비스를 제공합니다.</p>
+                        <p><strong>D/C 서비스</strong> – 적극적인 추천으로 발생한 타 사와의 미팅후 계약 체결 시, 계약 항목에 따라 차등적인 할인폭을 제공합니다.</p>
+                        <p>문의페이지, 메일, 전화 등을 통해 연락 주시면, 필요시 담당자가 방문하여 자세한 설명 및 금액을 안내해 드리겠습니다.</p>
+                    </div>
+                    <div class="about-intro-logo">
+                        <img src="assets/price-handshake.png" alt="SPECIA 계약 및 협력" class="price-logo-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SPECIA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="api-url.js"></script>
+    <script src="api-config.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

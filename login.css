@@ -1,0 +1,199 @@
+/* LOGIN 페이지 전용 스타일 */
+
+.login-main {
+    min-height: calc(100vh - 200px);
+    padding: 80px 0 100px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+/* 다크모드 배경 */
+[data-theme="dark"] .login-main {
+    background: var(--bg-color);
+}
+
+.login-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: var(--card-bg, white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 3rem;
+    width: 100%;
+    max-width: 480px;
+}
+
+/* 탭 */
+.auth-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: var(--bg-light);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.auth-tab:hover {
+    color: var(--text-color);
+}
+
+.auth-tab.active {
+    background: white;
+    color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+/* 다크모드 탭 활성 상태 */
+[data-theme="dark"] .auth-tab.active {
+    background: var(--card-bg);
+}
+
+.auth-tab-link {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.auth-tab-link:hover {
+    color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.signup-link-text {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-top: 1.5rem;
+}
+
+.signup-link-text a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-link-text a:hover {
+    text-decoration: underline;
+}
+
+/* 폼 섹션 */
+.auth-form-section {
+    display: none;
+}
+
+.auth-form-section.active {
+    display: block;
+}
+
+.auth-title {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.auth-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.auth-form .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.auth-form .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.auth-form .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 400 !important;
+}
+
+.auth-form .checkbox-label input {
+    width: auto;
+    accent-color: var(--primary-color);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-link {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .login-main {
+        padding: 60px 20px 80px;
+    }
+
+    .login-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .auth-tab {
+        font-size: 0.9rem;
+    }
+}

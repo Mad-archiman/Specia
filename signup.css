@@ -1,0 +1,194 @@
+/* 회원가입 페이지 전용 스타일 */
+
+.signup-main {
+    min-height: calc(100vh - 200px);
+    padding: 80px 0 100px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+/* 다크모드 배경 */
+[data-theme="dark"] .signup-main {
+    background: var(--bg-color);
+}
+
+.signup-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-card {
+    background: var(--card-bg, white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 3rem;
+    width: 100%;
+    max-width: 480px;
+}
+
+.signup-title {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.signup-subtitle {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.signup-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.form-group-flex {
+    flex: 1;
+}
+
+.btn-duplicate {
+    padding: 12px 20px;
+    background: var(--bg-light);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.btn-duplicate:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.btn-duplicate.btn-available {
+    background: #059669;
+    color: white;
+    border-color: #059669;
+    cursor: default;
+}
+
+.btn-duplicate.btn-available:hover {
+    background: #059669;
+    color: white;
+    border-color: #059669;
+}
+
+.duplicate-result {
+    display: none;
+    margin-top: 0.5rem;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.duplicate-result.duplicate {
+    display: block;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.signup-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signup-form .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.signup-form .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-hint {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+.checkbox-group .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 400 !important;
+}
+
+.checkbox-group .checkbox-label input {
+    width: auto;
+    accent-color: var(--primary-color);
+}
+
+.btn-signup {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.login-link-text {
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.login-link-text a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link-text a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .signup-main {
+        padding: 60px 20px 80px;
+    }
+
+    .signup-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .signup-title {
+        font-size: 1.75rem;
+    }
+
+    .form-group-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

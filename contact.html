@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        (function(){var t=localStorage.getItem('specia-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SPECIA 연락처">
+    <title>CONTACT - SPECIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">SP<span class="logo-e">三</span>CIA</a>
+                </div>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">ABOUT</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="values-vision.html">Vision</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">SERVICE</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="price.html">Price</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link active">CONTACT</a></li>
+                        <li><a href="login.html" class="nav-link nav-login">LOGIN</a></li>
+                    </ul>
+                    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="테마 전환"></button>
+                    <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <!-- 페이지 헤더 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">CONTACT US</h1>
+                <p class="page-subtitle">문의사항이나 제안사항을 보내주세요</p>
+            </div>
+        </section>
+
+        <!-- 지도 + 연락처 섹션 (좌: 구글맵, 우: 연락처·소셜) -->
+        <section class="contact-content-section">
+            <div class="container">
+                <div class="contact-layout contact-map-info-layout">
+                    <!-- 좌측: 구글맵 -->
+                    <div class="contact-map-wrapper">
+                        <h2 class="section-heading">LOCATION</h2>
+                        <div class="map-container">
+                            <iframe 
+                                id="google-map-iframe"
+                                src="https://www.google.com/maps?q=경기도+하남시+미사강변중앙로+198번길+29+미사푸르지오시티+B동+901호&hl=ko&z=16&output=embed"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="SPECIA 위치 지도"
+                            ></iframe>
+                        </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=경기도+하남시+미사강변중앙로+198번길+29+미사푸르지오시티+B동+901호" target="_blank" rel="noopener noreferrer" class="map-link">🗺️ Google 지도에서 열기</a>
+                    </div>
+
+                    <!-- 우측: 연락처 정보 + 소셜 미디어 -->
+                    <div class="contact-info">
+                        <h2 class="section-heading">Contact Information</h2>
+                        <div class="contact-info-content">
+                            <div class="info-card">
+                                <div class="info-icon">📍</div>
+                                <div class="info-text">
+                                    <h3>Address</h3>
+                                    <p id="contact-address">경기도 하남시 미사강변중앙로 198번길 29, 미사푸르지오시티 B동 901호</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">📞</div>
+                                <div class="info-text">
+                                    <h3>Call number</h3>
+                                    <p id="contact-phone">010-6326-6815</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">✉️</div>
+                                <div class="info-text">
+                                    <h3>E-mail</h3>
+                                    <p id="contact-email">specia@naver.com</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">🌐</div>
+                                <div class="info-text">
+                                    <h3>Web site</h3>
+                                    <p id="contact-website">www.specia.co.kr</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <div class="info-icon">🕒</div>
+                                <div class="info-text">
+                                    <h3>C/S time</h3>
+                                    <p>평일: 09:00 - 18:00<br>주말 및 공휴일 휴무</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social-media">
+                            <h3 class="social-heading">SOCIAL MEDIA</h3>
+                            <div class="social-links">
+                                <a href="https://www.youtube.com/@SPECIA2026" class="social-link social-link-youtube" target="_blank" rel="noopener noreferrer">YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 문의하기 (하단) -->
+        <section class="contact-form-section">
+            <div class="container">
+                <div class="contact-form-wrapper">
+                    <h2 class="section-heading">문의하기</h2>
+                    <form id="contact-form" class="contact-form-page">
+                        <div class="form-group">
+                            <label for="contact-name">회사 명 / 담당자 명 *</label>
+                            <input type="text" id="contact-name" name="name" placeholder="이름을 입력하세요" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-form-email">이메일 *</label>
+                            <input type="email" id="contact-form-email" name="email" placeholder="이메일을 입력하세요" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone-input">전화번호</label>
+                            <input type="tel" id="contact-phone-input" name="phone" placeholder="전화번호를 입력하세요 (선택사항)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-subject">제목 *</label>
+                            <input type="text" id="contact-subject" name="subject" placeholder="문의 제목을 입력하세요" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message">내용 *</label>
+                            <textarea id="contact-message" name="message" rows="6" placeholder="문의 내용을 입력하세요" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-category">문의 유형</label>
+                            <select id="contact-category" name="category">
+                                <option value="general">서비스 문의</option>
+                                <option value="service">견적 문의</option>
+                                <option value="partnership">파트너십 제안</option>
+                                <option value="support">방문 요청</option>
+                                <option value="other">기타</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="contact-privacy" name="privacy" required>
+                                <span>개인정보 수집 및 이용에 동의합니다 *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit">문의 보내기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SPECIA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="api-url.js"></script>
+    <script src="api-config.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script src="contact.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

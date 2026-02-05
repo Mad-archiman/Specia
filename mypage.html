@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        (function(){var t=localStorage.getItem('specia-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SPECIA 마이페이지">
+    <title>마이페이지 - SPECIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mypage.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">SP<span class="logo-e">三</span>CIA</a>
+                </div>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">ABOUT</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="values-vision.html">Vision</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">SERVICE</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="price.html">Price</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                        <li><a href="login.html" class="nav-link nav-login">LOGIN</a></li>
+                    </ul>
+                    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="테마 전환"></button>
+                    <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <!-- 페이지 헤더 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">마이페이지</h1>
+                <p class="page-subtitle">나의 정보를 관리합니다</p>
+            </div>
+        </section>
+
+        <!-- 마이페이지 콘텐츠 -->
+        <section class="mypage-content-section">
+            <div class="container">
+                <h2 class="mypage-section-title">이용중인 서비스</h2>
+                <div class="mypage-service-boxes">
+                    <div class="mypage-service-box mypage-box-general" id="box-general" role="button" tabindex="0">
+                        <span class="mypage-box-label">일반형</span>
+                        <span class="mypage-box-count" id="count-general">0</span>
+                        <span class="mypage-box-unit">개</span>
+                    </div>
+                    <div class="mypage-service-box mypage-box-subscription" id="box-subscription" role="button" tabindex="0">
+                        <span class="mypage-box-label">구독형</span>
+                        <span class="mypage-box-count" id="count-subscription">0</span>
+                        <span class="mypage-box-unit">개</span>
+                    </div>
+                    <div class="mypage-service-box mypage-box-dc" id="box-dc" role="button" tabindex="0">
+                        <span class="mypage-box-label">D/C 목록</span>
+                        <span class="mypage-box-count" id="count-dc">0</span>
+                        <span class="mypage-box-unit">개</span>
+                    </div>
+                </div>
+
+                <!-- 일반형 리스트 모달 -->
+                <div class="mypage-general-modal" id="general-modal" aria-hidden="true">
+                    <div class="mypage-modal-backdrop" id="modal-backdrop"></div>
+                    <div class="mypage-modal-panel">
+                        <div class="mypage-modal-header">
+                            <h3 class="mypage-modal-title">일반형 서비스 목록</h3>
+                            <button type="button" class="mypage-modal-close" id="modal-close" aria-label="닫기">&times;</button>
+                        </div>
+                        <div class="mypage-modal-body">
+                            <div class="mypage-table-wrap">
+                                <table class="mypage-general-table">
+                                    <thead>
+                                        <tr>
+                                            <th>진행상태</th>
+                                            <th>계약 년월일</th>
+                                            <th>회사명</th>
+                                            <th>담당자명</th>
+                                            <th>프로젝트명</th>
+                                            <th>누적금액</th>
+                                            <th>수정목록</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="general-list-body">
+                                        <!-- JS에서 렌더 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mypage-modal-empty" id="general-empty" style="display:none;">
+                                등록된 일반형 서비스가 없습니다.
+                            </div>
+                            <div class="mypage-pagination" id="general-pagination">
+                                <!-- JS에서 렌더 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 구독형 리스트 모달 -->
+                <div class="mypage-general-modal" id="subscription-modal" aria-hidden="true">
+                    <div class="mypage-modal-backdrop" id="subscription-modal-backdrop"></div>
+                    <div class="mypage-modal-panel">
+                        <div class="mypage-modal-header">
+                            <h3 class="mypage-modal-title">구독형 서비스 목록</h3>
+                            <button type="button" class="mypage-modal-close" id="subscription-modal-close" aria-label="닫기">&times;</button>
+                        </div>
+                        <div class="mypage-modal-body">
+                            <div class="mypage-table-wrap">
+                                <table class="mypage-general-table">
+                                    <thead>
+                                        <tr>
+                                            <th>구독 타입</th>
+                                            <th>회사명</th>
+                                            <th>담당자명</th>
+                                            <th>프로젝트명</th>
+                                            <th>누적금액</th>
+                                            <th>수정금액</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="subscription-list-body">
+                                        <!-- JS에서 렌더 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mypage-modal-empty" id="subscription-empty" style="display:none;">
+                                등록된 구독형 서비스가 없습니다.
+                            </div>
+                            <div class="mypage-pagination" id="subscription-pagination">
+                                <!-- JS에서 렌더 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D/C 목록 모달 -->
+                <div class="mypage-general-modal" id="dc-modal" aria-hidden="true">
+                    <div class="mypage-modal-backdrop" id="dc-modal-backdrop"></div>
+                    <div class="mypage-modal-panel">
+                        <div class="mypage-modal-header">
+                            <h3 class="mypage-modal-title">D/C 목록</h3>
+                            <button type="button" class="mypage-modal-close" id="dc-modal-close" aria-label="닫기">&times;</button>
+                        </div>
+                        <div class="mypage-modal-body">
+                            <div class="mypage-table-wrap">
+                                <table class="mypage-general-table">
+                                    <thead>
+                                        <tr>
+                                            <th>추천 회사명</th>
+                                            <th>담당자명</th>
+                                            <th>미팅여부</th>
+                                            <th>계약여부</th>
+                                            <th>계약명</th>
+                                            <th>할인률</th>
+                                            <th>누적할인률</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dc-list-body">
+                                        <!-- JS에서 렌더 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mypage-modal-empty" id="dc-empty" style="display:none;">
+                                등록된 D/C 목록이 없습니다.
+                            </div>
+                            <div class="mypage-pagination" id="dc-pagination">
+                                <!-- JS에서 렌더 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SPECIA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="api-url.js"></script>
+    <script src="api-config.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="mypage.js"></script>
+</body>
+</html>

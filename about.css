@@ -1,0 +1,194 @@
+/* ABOUT 페이지 전용 스타일 */
+
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 100px 0 60px;
+    text-align: center;
+}
+
+.page-title {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.page-subtitle {
+    font-family: 'Noto Sans KR', 'Ethnocentric', 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.section-heading {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+/* 인사말 섹션 */
+.about-intro-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.about-intro-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+/* 좌측: 텍스트 영역 */
+.about-intro-text {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 2;
+    color: var(--text-color);
+}
+
+.about-intro-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.about-intro-text p:first-child {
+    font-size: 1.5rem;
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.about-intro-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* 우측: 로고 이미지 영역 */
+.about-intro-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.about-intro-logo img {
+    max-width: 150%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* PRICE 페이지 전용 로고 스타일 */
+.price-logo-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 테마별 로고 전환 (기존 로고용) */
+[data-theme="light"] .about-intro-logo .logo-img-dark {
+    display: none;
+}
+[data-theme="light"] .about-intro-logo .logo-img-light {
+    display: block;
+}
+[data-theme="dark"] .about-intro-logo .logo-img-light {
+    display: none;
+}
+[data-theme="dark"] .about-intro-logo .logo-img-dark {
+    display: block;
+}
+
+/* 서비스 편집 섹션 (SERVICE 페이지) */
+.services-edit-section {
+    padding: 60px 0 80px;
+    background-color: var(--bg-color);
+}
+
+.services-edit-notice {
+    margin-bottom: 2rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.services-edit-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.services-edit-form .form-group input,
+.services-edit-form .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--bg-color);
+}
+
+.services-edit-block {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: var(--bg-light);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.services-edit-block-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.services-edit-form .form-actions {
+    margin-top: 2rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 968px) {
+    .about-intro-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-intro-logo {
+        order: -1;
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-heading {
+        font-size: 1.5rem;
+    }
+
+    .about-intro-section {
+        padding: 60px 0;
+    }
+
+    .about-intro-text p {
+        font-size: 1rem;
+    }
+
+    .about-intro-logo img {
+        width: 300px;
+    }
+}

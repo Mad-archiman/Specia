@@ -1,0 +1,788 @@
+/* Ethnocentric 폰트 로드 */
+@import url('https://fonts.cdnfonts.com/css/ethnocentric');
+
+/* 기본 리셋 및 변수 - 라이트모드(기본) */
+:root,
+[data-theme="light"] {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-light: #f9fafb;
+    --bg-dark: #1f2937;
+    --border-color: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+    --header-bg: #1f2937;
+    --card-bg: #ffffff;
+    --footer-bg: #1f2937;
+}
+
+/* 다크모드 */
+[data-theme="dark"] {
+    --primary-color: #818cf8;
+    --secondary-color: #a78bfa;
+    --text-color: #f3f4f6;
+    --text-light: #9ca3af;
+    --bg-color: #111827;
+    --bg-light: #1f2937;
+    --bg-dark: #0f172a;
+    --border-color: #374151;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --header-bg: #0f172a;
+    --card-bg: #1f2937;
+    --footer-bg: #0f172a;
+}
+
+/* 다크모드: 입력 필드 텍스트/배경 반전 (글씨 보이도록) */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    color: var(--text-color);
+    background-color: var(--bg-light);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--text-light);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* 영문은 Ethnocentric 우선 적용 */
+.nav-link,
+.btn,
+input, textarea, select {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+}
+
+/* 메인페이지 영어 텍스트에 Ethnocentric 적용 (영어 우선, 한글은 Noto Sans KR) */
+.hero-title,
+.hero-subtitle,
+.section-title,
+.footer p {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+/* 한글 본문은 Noto Sans KR 우선 적용 */
+.about-text,
+.service-card h3,
+.service-card p,
+.form-group label {
+    font-family: 'Noto Sans KR', 'Ethnocentric', 'Orbitron', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 헤더 및 네비게이션 */
+.header {
+    background-color: var(--header-bg);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    padding: 1rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.logo-img:hover {
+    opacity: 0.8;
+}
+
+.logo-text {
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.logo-text:hover {
+    color: var(--primary-color);
+}
+
+.logo-e {
+    color: var(--primary-color);
+}
+
+/* 테마별 로고 전환: 라이트 모드 - 새 로고, 다크 모드 - 기존 로고 */
+[data-theme="light"] .logo-img-dark {
+    display: none;
+}
+[data-theme="light"] .logo-img-light {
+    display: block;
+}
+[data-theme="dark"] .logo-img-light {
+    display: none;
+}
+[data-theme="dark"] .logo-img-dark {
+    display: block;
+}
+
+/* 로고 제외 네비 요소들 우측 정렬 묶음 */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ABOUT 드롭다운 메뉴 */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown .nav-link {
+    cursor: pointer;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background-color: var(--header-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 1001;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-menu li {
+    margin: 0;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: white;
+    text-decoration: none;
+    font-family: 'Ethnocentric', 'Orbitron', 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    transition: var(--transition);
+}
+
+.nav-dropdown-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+/* OO님 환영합니다 호버 시 드롭다운 (관리자: 문의관리 / 일반유저: 마이페이지) */
+.nav-welcome-dropdown .nav-link.nav-welcome {
+    cursor: pointer;
+    color: white !important;
+}
+
+.nav-welcome-dropdown .nav-dropdown-menu {
+    left: auto;
+    right: 0;
+    min-width: 160px;
+}
+
+.nav-login {
+    background-color: var(--primary-color);
+    padding: 8px 20px;
+    border-radius: 6px;
+    color: white !important;
+}
+
+.nav-login:hover {
+    background-color: var(--secondary-color);
+    color: white !important;
+}
+
+.nav-login::after {
+    display: none;
+}
+
+.nav-welcome-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-welcome {
+    color: white !important;
+    cursor: default;
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+.nav-logout {
+    margin-left: 0.5rem;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: var(--transition);
+}
+
+.nav-logout:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: var(--transition);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* 테마 토글 버튼 (전구 아이콘) */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.theme-toggle svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* 히어로 섹션 */
+.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 히어로 로고 - 열(컨테이너) 기준 딱 맞게, 넘치면 잘림 */
+.hero-logo-wrap {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-logo {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: heroTextSlideUp 2s ease forwards;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: heroTextSlideUp 2s ease 0.15s forwards;
+}
+
+/* 버튼 */
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: white;
+    color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 섹션 공통 스타일 */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    letter-spacing: -0.02em;
+}
+
+/* 소개 섹션 */
+.about {
+    background-color: var(--bg-light);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-text {
+    text-align: center;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* 서비스 섹션 */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 5rem;
+}
+
+.service-card {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-icon img {
+    width: 12rem;
+    height: 12rem;
+    object-fit: contain;
+    display: block;
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+.service-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* 서비스 카드 클릭 인터랙션: 선택 시 나머지 카드 흑백·블러·투명, 설명박스 표시 */
+.service-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.service-card-description {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    text-align: left;
+}
+
+.service-card-description p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+
+.services-grid.has-selection .service-card:not(.selected) {
+    filter: grayscale(1) blur(4px);
+    opacity: 0.5;
+    pointer-events: none;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.services-grid .service-card {
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card.selected .service-card-description {
+    display: block;
+    animation: serviceDescIn 0.3s ease;
+}
+
+@keyframes serviceDescIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 연락처 섹션 */
+.contact {
+    background-color: var(--bg-light);
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* 로그인 섹션 */
+.login {
+    background-color: var(--bg-color);
+}
+
+.login-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-form {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.contact-form .btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 푸터 */
+.footer {
+    background-color: var(--footer-bg);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 히어로 텍스트: 투명→표시, 하단에서 상단으로 2초 슬라이드업 */
+@keyframes heroTextSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: var(--bg-dark);
+        width: 100%;
+        text-align: center;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+        padding: 2rem 0;
+        gap: 1rem;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        padding: 1rem;
+        display: block;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: transparent;
+        padding: 0 0 0 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .nav-dropdown-menu a {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-login {
+        margin: 1rem auto;
+        display: inline-block;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 80px 0;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .contact-form,
+    .login-form {
+        padding: 1.5rem;
+    }
+
+    .logo-img {
+        height: 80px;
+    }
+}

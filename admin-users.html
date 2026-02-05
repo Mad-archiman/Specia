@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        (function(){var t=localStorage.getItem('specia-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SPECIA 관리페이지 - 유저 관리">
+    <title>관리페이지 - SPECIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="admin-users.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html" class="logo-text">SP<span class="logo-e">三</span>CIA</a>
+                </div>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">ABOUT</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="values-vision.html">Vision</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-link">SERVICE</a>
+                            <ul class="nav-dropdown-menu">
+                                <li><a href="service.html">Service</a></li>
+                                <li><a href="price.html">Price</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                        <li><a href="login.html" class="nav-link nav-login">LOGIN</a></li>
+                    </ul>
+                    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="테마 전환"></button>
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">관리페이지</h1>
+                <p class="page-subtitle">회원가입한 일반 유저 목록입니다. 회사명과 메모장은 직접 수정할 수 있습니다.</p>
+            </div>
+        </section>
+
+        <section class="admin-users-section">
+            <div class="container">
+                <div id="admin-users-loading" class="admin-users-loading">목록을 불러오는 중...</div>
+                <div id="admin-users-error" class="admin-users-error" style="display:none;"></div>
+                <div id="admin-users-content" style="display:none;">
+                    <div class="admin-users-table-wrap">
+                        <table class="admin-users-table">
+                            <thead>
+                                <tr>
+                                    <th>가입년월일</th>
+                                    <th>회사명</th>
+                                    <th>이름</th>
+                                    <th>전화번호</th>
+                                    <th>이메일</th>
+                                    <th>메모장</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="admin-users-pagination" class="admin-users-pagination"></div>
+                </div>
+                <div id="admin-users-empty" class="admin-users-empty" style="display:none;">
+                    아직 회원가입한 일반 유저가 없습니다.<br>
+                    <span class="admin-users-empty-hint">일반 유저가 회원가입하면 여기에 표시됩니다.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 유저 마이페이지 관리 모달 -->
+    <div class="admin-mypage-modal" id="admin-mypage-modal" aria-hidden="true">
+        <div class="admin-mypage-backdrop" id="admin-mypage-backdrop"></div>
+        <div class="admin-mypage-panel">
+            <div class="admin-mypage-header">
+                <h3 class="admin-mypage-title">마이페이지 관리 - <span id="admin-mypage-user-name"></span></h3>
+                <button type="button" class="admin-mypage-close" id="admin-mypage-close" aria-label="닫기">&times;</button>
+            </div>
+            <div class="admin-mypage-tabs">
+                <button type="button" class="admin-mypage-tab active" data-tab="general">일반형</button>
+                <button type="button" class="admin-mypage-tab" data-tab="subscription">구독형</button>
+                <button type="button" class="admin-mypage-tab" data-tab="dc">D/C 목록</button>
+            </div>
+            <div class="admin-mypage-body">
+                <!-- 일반형 탭 -->
+                <div class="admin-mypage-tab-content active" id="tab-general">
+                    <div class="admin-mypage-actions">
+                        <button type="button" class="admin-mypage-btn-add" id="btn-add-general">+ 추가</button>
+                    </div>
+                    <div class="admin-mypage-form-wrap" id="form-general" style="display:none;"></div>
+                    <div class="admin-mypage-table-scroll">
+                        <table class="admin-mypage-table">
+                            <thead><tr><th>진행상태</th><th>계약일</th><th>회사명</th><th>담당자</th><th>프로젝트</th><th>누적금액</th><th>수정목록</th><th></th></tr></thead>
+                            <tbody id="mypage-general-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- 구독형 탭 -->
+                <div class="admin-mypage-tab-content" id="tab-subscription">
+                    <div class="admin-mypage-actions">
+                        <button type="button" class="admin-mypage-btn-add" id="btn-add-subscription">+ 추가</button>
+                    </div>
+                    <div class="admin-mypage-form-wrap" id="form-subscription" style="display:none;"></div>
+                    <div class="admin-mypage-table-scroll">
+                        <table class="admin-mypage-table">
+                            <thead><tr><th>구독타입</th><th>회사명</th><th>담당자</th><th>프로젝트</th><th>누적금액</th><th>수정금액</th><th></th></tr></thead>
+                            <tbody id="mypage-subscription-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- D/C 탭 -->
+                <div class="admin-mypage-tab-content" id="tab-dc">
+                    <div class="admin-mypage-actions">
+                        <button type="button" class="admin-mypage-btn-add" id="btn-add-dc">+ 추가</button>
+                    </div>
+                    <div class="admin-mypage-form-wrap" id="form-dc" style="display:none;"></div>
+                    <div class="admin-mypage-table-scroll">
+                        <table class="admin-mypage-table">
+                            <thead><tr><th>추천회사</th><th>담당자</th><th>미팅여부</th><th>계약여부</th><th>계약명</th><th>할인률</th><th>누적할인률</th><th></th></tr></thead>
+                            <tbody id="mypage-dc-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 SPECIA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="api-url.js"></script>
+    <script src="api-config.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="admin-users.js"></script>
+</body>
+</html>

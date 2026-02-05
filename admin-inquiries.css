@@ -1,0 +1,266 @@
+/* 관리자 문의 목록 페이지 */
+
+.inquiries-section {
+    padding: 2rem 0 4rem;
+    background-color: var(--bg-light);
+    min-height: 60vh;
+}
+
+.inquiries-loading,
+.inquiries-error,
+.inquiries-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.inquiries-error {
+    color: var(--danger, #dc3545);
+}
+
+.inquiries-actions-bar {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn-delete-selected {
+    padding: 0.6rem 1.2rem;
+    background: var(--danger, #dc3545);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-delete-selected:hover:not(:disabled) {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.btn-delete-selected:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.inquiries-table-wrap {
+    overflow-x: auto;
+    background: var(--card-bg, white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.inquiries-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.inquiries-table th,
+.inquiries-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inquiries-table thead th {
+    background: var(--bg-light);
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.inquiries-table tbody tr {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.inquiries-table tbody tr.selected {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.inquiries-table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.inquiries-table tbody tr.expanded {
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.inquiries-table .th-checkbox {
+    width: 3rem;
+    text-align: center;
+}
+
+.inquiries-table .th-checkbox input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.inquiries-table .cell-checkbox {
+    text-align: center;
+}
+
+.inquiries-table .cell-checkbox input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.inquiries-table .th-expand {
+    width: 2.5rem;
+    text-align: center;
+}
+
+.inquiries-table td {
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.inquiries-table .cell-name {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inquiries-table .cell-subject {
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inquiries-table .cell-phone {
+    white-space: nowrap;
+}
+
+.inquiries-table .cell-date {
+    white-space: nowrap;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.inquiries-table .cell-expand {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.inquiries-table tr.expanded .cell-expand {
+    transform: rotate(180deg);
+}
+
+/* 펼침 상세 행 */
+.inquiries-detail-row td {
+    padding: 0;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+}
+
+.inquiries-detail-inner {
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: var(--bg-light);
+    text-align: left;
+}
+
+.inquiries-detail-inner h4 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.35rem;
+}
+
+.inquiries-detail-inner p {
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.inquiries-detail-inner p:last-child {
+    margin-bottom: 0;
+}
+
+.inquiries-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem 2rem;
+}
+
+/* 페이지네이션 */
+.inquiries-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.inquiries-pagination button {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg, white);
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.inquiries-pagination button:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.inquiries-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.inquiries-pagination button.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.inquiries-pagination .pagination-info {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .inquiries-table th,
+    .inquiries-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .inquiries-table .cell-subject {
+        max-width: 140px;
+    }
+
+    .inquiries-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

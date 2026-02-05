@@ -1,0 +1,318 @@
+/* 관리페이지 - 유저 목록 */
+
+.admin-users-section {
+    padding: 2rem 0 4rem;
+    background-color: var(--bg-light);
+    min-height: 60vh;
+}
+
+.admin-users-loading,
+.admin-users-error,
+.admin-users-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.admin-users-error {
+    color: var(--danger, #dc3545);
+}
+
+.admin-users-empty-hint {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+.admin-users-table-wrap {
+    overflow-x: auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.admin-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-users-table thead th {
+    background: var(--bg-light);
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.admin-users-table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.04);
+}
+
+.admin-users-table .cell-date {
+    white-space: nowrap;
+}
+
+.admin-users-table .cell-company input,
+.admin-users-table .cell-memo textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: var(--bg-color);
+    transition: var(--transition);
+}
+
+.admin-users-table .cell-company input:focus,
+.admin-users-table .cell-memo textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.admin-users-table .cell-memo textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.admin-users-table .cell-name,
+.admin-users-table .cell-phone,
+.admin-users-table .cell-email {
+    color: var(--text-color);
+}
+
+.admin-users-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.admin-users-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 6px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.admin-users-pagination button:hover:not(:disabled) {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.admin-users-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.admin-users-pagination .page-info {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin: 0 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .admin-users-table th,
+    .admin-users-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 이름 클릭 링크 */
+.admin-users-table .cell-name-link {
+    color: var(--primary-color);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+.admin-users-table .cell-name-link:hover {
+    text-decoration: underline;
+}
+
+/* 유저 마이페이지 관리 모달 */
+.admin-mypage-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s, visibility 0.25s;
+}
+.admin-mypage-modal.is-open {
+    visibility: visible;
+    opacity: 1;
+}
+.admin-mypage-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+.admin-mypage-panel {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 1100px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+.admin-mypage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+.admin-mypage-title { font-size: 1.2rem; font-weight: 600; }
+.admin-mypage-close {
+    width: 36px; height: 36px;
+    border: none; background: transparent;
+    font-size: 1.5rem; cursor: pointer;
+    color: var(--text-light);
+}
+.admin-mypage-close:hover { color: var(--text-color); }
+.admin-mypage-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+.admin-mypage-tab {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: var(--bg-light);
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+.admin-mypage-tab:hover { color: var(--text-color); }
+.admin-mypage-tab.active {
+    background: var(--primary-color);
+    color: white;
+}
+.admin-mypage-body {
+    padding: 1rem 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+.admin-mypage-tab-content {
+    display: none;
+}
+.admin-mypage-tab-content.active {
+    display: block;
+}
+.admin-mypage-actions {
+    margin-bottom: 1rem;
+}
+.admin-mypage-btn-add {
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.admin-mypage-btn-add:hover {
+    opacity: 0.9;
+}
+.admin-mypage-table-scroll {
+    overflow-x: auto;
+}
+.admin-mypage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+.admin-mypage-table th,
+.admin-mypage-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+.admin-mypage-table thead th {
+    background: var(--bg-light);
+    font-weight: 600;
+}
+.admin-mypage-form-wrap {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+}
+.admin-mypage-form-wrap .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+.admin-mypage-form-wrap .form-row label {
+    min-width: 80px;
+    font-size: 0.85rem;
+}
+.admin-mypage-form-wrap input,
+.admin-mypage-form-wrap textarea {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+.admin-mypage-form-wrap .form-actions {
+    margin-top: 0.75rem;
+}
+.admin-mypage-btn-save,
+.admin-mypage-btn-cancel {
+    padding: 0.4rem 0.8rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.admin-mypage-btn-save { background: var(--primary-color); color: white; }
+.admin-mypage-btn-cancel { background: var(--bg-light); }
+.admin-mypage-btn-edit,
+.admin-mypage-btn-del {
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+.admin-mypage-btn-edit { background: rgba(99,102,241,0.2); color: var(--primary-color); }
+.admin-mypage-btn-del { background: rgba(220,53,69,0.2); color: #dc3545; }
