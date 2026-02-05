@@ -31,12 +31,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB 연결 (모든 데이터가 MongoDB에 저장되도록 연결 후 서버 시작)
-const MONGODB_URI = process.env.MONGODB_URI;
+// MongoDB 연결 - MONGODB_ATLAS_URL 우선, 없을 때만 로컬 사용
+const MONGODB_ATLAS_URL = process.env.MONGODB_ATLAS_URL?.trim() || '';
+const MONGODB_URI = MONGODB_ATLAS_URL || 'mongodb://localhost:27017/specia';
 
-if (!MONGODB_URI) {
-  console.error('❌ MONGODB_URI 환경 변수가 설정되지 않았습니다.');
-  console.log('📝 Server/.env 파일에 MONGODB_URI를 추가해주세요.');
+if (!MONGODB_ATLAS_URL) {
+  console.log('📌 MONGODB_ATLAS_URL 미설정 → 로컬 MongoDB 사용 (mongodb://localhost:27017/specia)');
+} else {
+  console.log('📌 MONGODB_ATLAS_URL 사용 (MongoDB Atlas)');
 }
 
 const startServer = () => {
@@ -46,7 +48,7 @@ const startServer = () => {
   });
 };
 
-mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/specia', {
+mongoose.connect(MONGODB_URI, {
   retryWrites: true,
   w: 'majority'
 })
@@ -68,8 +70,8 @@ mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/specia', {
   })
   .catch((error) => {
     console.error('❌ MongoDB 연결 실패:', error.message);
-    if (!MONGODB_URI) {
-      console.log('💡 Server/.env에 MONGODB_URI를 설정해주세요.');
+    if (!MONGODB_ATLAS_URL) {
+      console.log('💡 로컬 MongoDB가 실행 중인지 확인하세요. 또는 Server/.env에 MONGODB_ATLAS_URL를 설정해주세요.');
     }
     process.exit(1);
   });

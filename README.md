@@ -39,7 +39,7 @@ SPECIA-웹사이트/
 `Server` 폴더에 `.env` 파일을 생성하고 다음 내용을 추가하세요:
 
 ```env
-MONGODB_URI=your_mongodb_atlas_connection_string_here
+MONGODB_ATLAS_URL=your_mongodb_atlas_connection_string_here
 PORT=5000
 ```
 
