@@ -1,0 +1,12 @@
+{
+  "name": "specia-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "cd Server && npm start",
+    "heroku-postbuild": "cd Server && npm install"
+  }
+}
