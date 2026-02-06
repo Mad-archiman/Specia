@@ -141,60 +141,26 @@ mongoose.connection.on('reconnected', () => {
 // 예외 처리: 프로세스가 예기치 않게 종료되지 않도록 보호
 process.on('unhandledRejection', (reason, promise) => {
   console.error('⚠️ Unhandled Rejection at:', promise, 'reason:', reason);
-  // 프로세스를 종료하지 않고 로그만 남김
 });
 
 process.on('uncaughtException', (error) => {
   console.error('⚠️ Uncaught Exception:', error);
-  // 프로세스를 종료하지 않고 로그만 남김
 });
 
-// 서버 시작 및 MongoDB 연결
-// 프로덕션/개발 모두 서버는 먼저 시작하고, MongoDB는 백그라운드에서 연결 시도
-// 이렇게 하면 MongoDB 연결 실패 시에도 서버는 응답할 수 있어 503 오류를 방지할 수 있습니다.
-try {
-  startServer();
-  console.log('✅ 서버 시작 완료');
-} catch (error) {
-  console.error('❌ 서버 시작 실패:', error.message);
-  // 서버 시작 실패해도 프로세스는 계속 실행 (Heroku가 재시작할 수 있도록)
-}
+// ========== 모든 라우트를 먼저 등록한 뒤 서버 시작 ==========
+// 루트(/) 요청 - 503 방지를 위해 서버가 반드시 응답
+app.get('/', (req, res) => {
+  res.json({
+    message: 'SPECIA API 서버가 실행 중입니다.',
+    health: '/api/health',
+    timestamp: new Date().toISOString()
+  });
+});
 
-// MongoDB 연결 시도 (비동기) - 서버 시작과 독립적으로 실행
-setTimeout(() => {
-  connectMongoDB()
-    .then((connected) => {
-      if (!connected) {
-        if (isProduction) {
-          console.warn('⚠️ MongoDB 연결 실패. 서버는 실행 중이지만 일부 기능이 작동하지 않을 수 있습니다.');
-          console.warn('   Heroku Config Vars에서 MONGODB_ATLAS_URL을 확인하세요.');
-          console.warn('   MongoDB Atlas Network Access에서 모든 IP(0.0.0.0/0)를 허용했는지 확인하세요.');
-          // 프로덕션에서는 주기적으로 재연결 시도
-          const retryInterval = setInterval(() => {
-            if (MONGODB_ATLAS_URL && mongoose.connection.readyState === 0) {
-              console.log('🔄 MongoDB 재연결 시도 중...');
-              connectMongoDB()
-                .then((reconnected) => {
-                  if (reconnected) {
-                    console.log('✅ MongoDB 재연결 성공!');
-                    clearInterval(retryInterval);
-                  }
-                })
-                .catch(() => {
-                  // 재연결 실패는 조용히 무시 (다음 주기에서 재시도)
-                });
-            }
-          }, 30000); // 30초마다 재시도
-        } else {
-          console.warn('⚠️ MongoDB 연결 실패. 일부 기능이 작동하지 않을 수 있습니다.');
-        }
-      }
-    })
-    .catch((error) => {
-      console.error('❌ MongoDB 연결 중 예상치 못한 오류:', error.message);
-      // 오류가 발생해도 서버는 계속 실행
-    });
-}, 100); // 서버 시작 후 100ms 후에 MongoDB 연결 시도
+// favicon 요청 - 204 No Content로 콘솔 오류 방지
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
 
 // 기본 라우트
 app.get('/api/health', (req, res) => {
@@ -204,10 +170,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API 라우트 예제
 app.get('/api/test', async (req, res) => {
   try {
-    // MongoDB 연결 상태 확인
     const dbStatus = mongoose.connection.readyState;
     const statusMessages = {
       0: '연결 안 됨',
@@ -215,7 +179,6 @@ app.get('/api/test', async (req, res) => {
       2: '연결 중',
       3: '연결 해제 중'
     };
-
     res.json({
       message: 'API 테스트 성공',
       database: statusMessages[dbStatus] || '알 수 없음',
@@ -235,7 +198,7 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/mypage', mypageRoutes);
 app.use('/api/admin', adminUsersRoutes);
 
-// 정적 파일 서빙 - 개발 환경에서만 (Vercel 배포 시 프론트는 별도 서빙)
+// 정적 파일 서빙 - 개발 환경에서만
 if (process.env.NODE_ENV !== 'production') {
   const projectRoot = join(__dirname, '..');
   app.use(express.static(projectRoot));
@@ -254,4 +217,39 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({ error: '요청한 경로를 찾을 수 없습니다.' });
 });
+
+// ========== 라우트 등록 후 서버 시작 ==========
+try {
+  startServer();
+  console.log('✅ 서버 시작 완료');
+} catch (error) {
+  console.error('❌ 서버 시작 실패:', error.message);
+}
+
+// MongoDB 연결 시도 (비동기) - 서버와 무관하게 백그라운드에서만 실행
+setTimeout(() => {
+  connectMongoDB()
+    .then((connected) => {
+      if (!connected && isProduction) {
+        console.warn('⚠️ MongoDB 연결 실패. 서버는 실행 중입니다.');
+        console.warn('   MongoDB Atlas → Network Access → 0.0.0.0/0 허용 필요.');
+        const retryInterval = setInterval(() => {
+          if (MONGODB_ATLAS_URL && mongoose.connection.readyState === 0) {
+            console.log('🔄 MongoDB 재연결 시도 중...');
+            connectMongoDB()
+              .then((reconnected) => {
+                if (reconnected) {
+                  console.log('✅ MongoDB 재연결 성공!');
+                  clearInterval(retryInterval);
+                }
+              })
+              .catch(() => {});
+          }
+        }, 30000);
+      }
+    })
+    .catch((error) => {
+      console.error('❌ MongoDB 연결 중 오류:', error.message);
+    });
+}, 100);
 
