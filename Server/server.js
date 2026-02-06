@@ -21,6 +21,26 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const isProduction = process.env.NODE_ENV === 'production' || process.env.PORT; // Heroku는 PORT 환경변수를 자동 설정
+
+// 프로덕션 환경에서 필수 환경변수 체크
+if (isProduction) {
+  const requiredVars = ['MONGODB_ATLAS_URL'];
+  const missingVars = requiredVars.filter(varName => !process.env[varName]?.trim());
+  
+  if (missingVars.length > 0) {
+    console.error('❌ [치명적 오류] 프로덕션 환경에서 필수 환경변수가 설정되지 않았습니다:');
+    missingVars.forEach(varName => {
+      console.error(`   - ${varName}`);
+    });
+    console.error('\n💡 해결 방법:');
+    console.error('   Heroku 대시보드 → Settings → Config Vars에서 다음을 설정하세요:');
+    console.error('   - MONGODB_ATLAS_URL: MongoDB Atlas 연결 문자열');
+    console.error('\n   또는 CLI로:');
+    console.error(`   heroku config:set MONGODB_ATLAS_URL="mongodb+srv://..." -a 앱이름`);
+    process.exit(1);
+  }
+}
 
 // CORS - Heroku 배포 시 FRONTEND_URL(Vercel)만 허용, 개발은 모든 출처
 const corsOptions = {
@@ -36,25 +56,38 @@ const MONGODB_ATLAS_URL = process.env.MONGODB_ATLAS_URL?.trim() || '';
 const MONGODB_URI = MONGODB_ATLAS_URL || 'mongodb://localhost:27017/specia';
 
 if (!MONGODB_ATLAS_URL) {
+  if (isProduction) {
+    console.error('❌ [치명적 오류] 프로덕션 환경에서 MONGODB_ATLAS_URL이 설정되지 않았습니다.');
+    process.exit(1);
+  }
   console.log('📌 MONGODB_ATLAS_URL 미설정 → 로컬 MongoDB 사용 (mongodb://localhost:27017/specia)');
 } else {
   console.log('📌 MONGODB_ATLAS_URL 사용 (MongoDB Atlas)');
 }
 
 const startServer = () => {
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 서버가 포트 ${PORT}에서 실행 중입니다.`);
     console.log(`📍 http://localhost:${PORT}`);
+    if (isProduction) {
+      console.log(`🌐 프로덕션 모드로 실행 중`);
+    }
   });
 };
 
-mongoose.connect(MONGODB_URI, {
-  retryWrites: true,
-  w: 'majority'
-})
-  .then(async () => {
+// MongoDB 연결 함수
+const connectMongoDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      retryWrites: true,
+      w: 'majority',
+      serverSelectionTimeoutMS: 10000, // 10초 타임아웃
+      socketTimeoutMS: 45000
+    });
+    
     console.log('✅ MongoDB 연결 성공 (specia DB)');
-    // 기존 사용자에게 userType 없으면 'user'로 설정 (MongoDB Compass에서 admin/user 구분용)
+    
+    // 기존 사용자에게 userType 없으면 'user'로 설정
     try {
       const result = await User.updateMany(
         { userType: { $exists: false } },
@@ -66,15 +99,52 @@ mongoose.connect(MONGODB_URI, {
     } catch (e) {
       console.warn('⚠️ userType 마이그레이션:', e.message);
     }
-    startServer();
-  })
-  .catch((error) => {
+    
+    return true;
+  } catch (error) {
     console.error('❌ MongoDB 연결 실패:', error.message);
-    if (!MONGODB_ATLAS_URL) {
+    if (isProduction) {
+      console.error('\n💡 프로덕션 환경에서 MongoDB 연결이 필수입니다.');
+      console.error('   Heroku Config Vars에서 MONGODB_ATLAS_URL을 확인하세요.');
+      console.error('   연결 문자열 형식: mongodb+srv://사용자:비밀번호@클러스터주소/데이터베이스?retryWrites=true&w=majority');
+    } else {
       console.log('💡 로컬 MongoDB가 실행 중인지 확인하세요. 또는 Server/.env에 MONGODB_ATLAS_URL를 설정해주세요.');
     }
-    process.exit(1);
-  });
+    return false;
+  }
+};
+
+// MongoDB 연결 이벤트 핸들러
+mongoose.connection.on('disconnected', () => {
+  console.warn('⚠️ MongoDB 연결이 끊어졌습니다. 재연결을 시도합니다...');
+});
+
+mongoose.connection.on('error', (error) => {
+  console.error('❌ MongoDB 연결 오류:', error.message);
+});
+
+// 서버 시작 및 MongoDB 연결
+if (isProduction) {
+  // 프로덕션: MongoDB 연결 성공 후에만 서버 시작
+  connectMongoDB()
+    .then((connected) => {
+      if (connected) {
+        startServer();
+      } else {
+        console.error('❌ 서버를 시작할 수 없습니다. MongoDB 연결이 필요합니다.');
+        process.exit(1);
+      }
+    });
+} else {
+  // 개발: 서버 먼저 시작, MongoDB는 백그라운드에서 연결 시도
+  startServer();
+  connectMongoDB()
+    .then((connected) => {
+      if (!connected) {
+        console.warn('⚠️ MongoDB 연결 실패. 일부 기능이 작동하지 않을 수 있습니다.');
+      }
+    });
+}
 
 // 기본 라우트
 app.get('/api/health', (req, res) => {
