@@ -9,6 +9,6 @@
 (function () {
     var host = window.location.hostname;
     if (host === 'localhost' || host === '127.0.0.1') return; // 로컬 개발은 api-config.js 기본값 사용
-    // 프로덕션: Heroku URL로 교체하세요
-    window.API_BASE_URL = 'https://YOUR_HEROKU_APP.herokuapp.com';
+    // 프로덕션: Heroku URL
+    window.API_BASE_URL = 'https://specia-e787f81acc5d.herokuapp.com';
 })();
