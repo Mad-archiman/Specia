@@ -402,15 +402,67 @@ input, textarea, select {
     width: 100%;
     height: 500px;
     overflow: hidden;
-    margin-bottom: 1.5rem;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.logo-loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.logo-loading-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.logo-loading-spinner {
+    width: 168px;
+    height: 168px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.logo-loading-spinner-ring {
+    position: absolute;
+    inset: 0;
+    border: 12px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: logoLoadingSpin 0.8s linear infinite;
+}
+
+.logo-loading-countdown {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-size: 3.75rem;
+    font-weight: 700;
+}
+
+@keyframes logoLoadingSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .hero-logo {
     width: 100%;
-    height: 500px;
+    height: 300px;
     object-fit: cover;
     object-position: center;
 }
@@ -431,6 +483,76 @@ input, textarea, select {
     letter-spacing: -0.01em;
     opacity: 0;
     animation: heroTextSlideUp 2s ease 0.15s forwards;
+}
+
+/* 유튜브 소개 영상 모달 */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.video-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.video-modal-close:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.video-modal-inner {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.video-modal-inner iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* 버튼 */
@@ -578,6 +700,27 @@ section {
 }
 
 .service-card.selected .service-card-description {
+    display: block;
+    animation: serviceDescIn 0.3s ease;
+}
+
+.service-card-link {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color, rgba(128, 128, 128, 0.3));
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.service-card-link:hover {
+    opacity: 0.8;
+}
+
+.service-card.selected .service-card-link {
     display: block;
     animation: serviceDescIn 0.3s ease;
 }

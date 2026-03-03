@@ -17,7 +17,7 @@ function App() {
       setMessage(response.data.message)
     } catch (error) {
       console.error('서버 연결 오류:', error)
-      setMessage('서버에 연결할 수 없습니다.')
+      setMessage('백엔드 서버(포트 5001)에 연결할 수 없습니다. 프로젝트 루트에서 npm run dev 를 실행했는지 확인하세요.')
     } finally {
       setLoading(false)
     }

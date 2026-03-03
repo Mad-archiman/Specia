@@ -7,6 +7,16 @@
   },
   "scripts": {
     "start": "cd Server && npm start",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd Server && cross-env PORT=5001 npm run dev",
+    "dev:client": "wait-on -t 30000 http://localhost:5001/api/health && cd Client && npm run dev",
+    "dev:client-only": "cd Client && npm run dev",
     "heroku-postbuild": "cd Server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "sharp": "^0.34.5",
+    "wait-on": "^7.2.0"
   }
 }

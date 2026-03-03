@@ -19,7 +19,7 @@
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <a href="index.html" class="logo-text">SP<span class="logo-e">三</span>CIA</a>
+                    <a href="index.html" class="logo-text">SP<span class="logo-e">E</span>CIA</a>
                 </div>
                 <div class="nav-right">
                     <ul class="nav-menu">
@@ -57,9 +57,15 @@
         <section id="home" class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-logo-wrap">
+                    <div class="hero-logo-wrap" id="hero-logo-trigger">
                         <img src="assets/logo-light.png" alt="SPECIA 로고" class="hero-logo logo-img-light">
                         <img src="assets/logo.png" alt="SPECIA 로고" class="hero-logo logo-img-dark">
+                        <div class="logo-loading-overlay" id="logo-loading">
+                            <div class="logo-loading-spinner">
+                                <div class="logo-loading-spinner-ring"></div>
+                                <span class="logo-loading-countdown" id="logo-loading-countdown">5</span>
+                            </div>
+                        </div>
                     </div>
                     <h2 class="hero-title">SPECIA에 오신 것을 환영합니다.</h2>
                     <p class="hero-subtitle">디테일하고 전문적인 서비스로 성공적인 프로젝트를 경험하세요.</p>
@@ -98,6 +104,17 @@
             <p>&copy; 2026 SPECIA. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- 유튜브 소개 영상 모달 -->
+    <div class="video-modal" id="intro-video-modal">
+        <div class="video-modal-backdrop"></div>
+        <div class="video-modal-content">
+            <button type="button" class="video-modal-close" id="video-modal-close" aria-label="닫기">&times;</button>
+            <div class="video-modal-inner">
+                <iframe id="intro-youtube" src="" title="SPECIA 소개 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
     <script src="api-url.js"></script>
     <script src="api-config.js"></script>

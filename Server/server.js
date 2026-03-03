@@ -69,12 +69,20 @@ if (!MONGODB_ATLAS_URL) {
 }
 
 const startServer = () => {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 서버가 포트 ${PORT}에서 실행 중입니다.`);
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`[SPECIA API] 서버가 포트 ${PORT}에서 실행 중입니다.`);
     console.log(`📍 http://localhost:${PORT}`);
     if (isProduction) {
       console.log(`🌐 프로덕션 모드로 실행 중`);
     }
+  });
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`[SPECIA API] ❌ 포트 ${PORT}이(가) 이미 사용 중입니다. 다른 프로그램을 종료하거나 .env에서 PORT를 변경하세요.`);
+    } else {
+      console.error('[SPECIA API] ❌ 서버 시작 실패:', err.message);
+    }
+    process.exit(1);
   });
 };
 

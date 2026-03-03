@@ -156,13 +156,20 @@ animateElements.forEach(el => {
 const API_BASE_SERVICES = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : 'http://localhost:5000/api';
 
 // 제공되는 서비스 API에서 불러와 렌더 (메인/SERVICE 페이지 공통)
+const AR_SERVICE_LINK = 'https://specia-ar-service.vercel.app/';
+
 function renderServiceCard(item, dataService) {
     const longDesc = (item.longDesc || '').trim();
+    const isArService = dataService === 'ar' || item.title === 'AR기술 지원';
+    const linkHtml = isArService
+        ? `<a href="${AR_SERVICE_LINK}" target="_blank" rel="noopener noreferrer" class="service-card-link">SPECIA AR 서비스 바로가기 →</a>`
+        : '';
     return `<div class="service-card" data-service="${dataService}">
         <div class="service-icon"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}"></div>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.shortDesc)}</p>
         <div class="service-card-description"><p>${escapeHtml(longDesc || item.shortDesc)}</p></div>
+        ${linkHtml}
     </div>`;
 }
 
@@ -205,6 +212,7 @@ function initServiceCardSelection() {
     if (serviceCardClickBound) return;
     serviceCardClickBound = true;
     document.addEventListener('click', function (e) {
+        if (e.target.closest('a.service-card-link')) return;
         const card = e.target.closest('.service-card');
         const grid = card ? card.closest('.services-grid') : null;
         if (card && grid) {
@@ -226,9 +234,78 @@ function initServiceCardSelection() {
     });
 }
 
+// 로고 5초 호버 시 유튜브 소개 영상 재생
+const INTRO_YOUTUBE_ID = 'D5z1ZH--gNE';
+const HOVER_DURATION_MS = 5000;
+
+function initLogoHoverVideo() {
+    const trigger = document.getElementById('hero-logo-trigger');
+    const loadingEl = document.getElementById('logo-loading');
+    const modal = document.getElementById('intro-video-modal');
+    const iframe = document.getElementById('intro-youtube');
+    const closeBtn = document.getElementById('video-modal-close');
+    const backdrop = modal?.querySelector('.video-modal-backdrop');
+
+    if (!trigger || !loadingEl || !modal || !iframe) return;
+
+    const countdownEl = document.getElementById('logo-loading-countdown');
+    let countdownInterval = null;
+
+    function showLoading() {
+        if (countdownEl) countdownEl.textContent = '5';
+        loadingEl.classList.add('active');
+    }
+
+    function hideLoading() {
+        loadingEl.classList.remove('active');
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+    }
+
+    function openVideoModal() {
+        hideLoading();
+        iframe.src = `https://www.youtube.com/embed/${INTRO_YOUTUBE_ID}?autoplay=1`;
+        modal.classList.add('active');
+    }
+
+    function closeVideoModal() {
+        modal.classList.remove('active');
+        iframe.src = '';
+    }
+
+    trigger.addEventListener('mouseenter', () => {
+        showLoading();
+        let count = 5;
+        if (countdownEl) countdownEl.textContent = count;
+        countdownInterval = setInterval(() => {
+            count--;
+            if (countdownEl) countdownEl.textContent = count;
+            if (count <= 0) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                openVideoModal();
+            }
+        }, 1000);
+    });
+
+    trigger.addEventListener('mouseleave', () => {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+        hideLoading();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
+    if (backdrop) backdrop.addEventListener('click', closeVideoModal);
+}
+
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', async () => {
     updateActiveNav();
     await loadAndRenderServices();
     initServiceCardSelection();
+    initLogoHoverVideo();
 });
